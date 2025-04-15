@@ -193,7 +193,7 @@ body {
   font-weight: 600;
 }
 
-/* Custom components styles
+/* Custom components styles */
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300;
@@ -218,4 +218,4 @@ body {
   .progress-bar-fill {
     @apply h-full bg-gradient-primary;
   }
-} */
+}
