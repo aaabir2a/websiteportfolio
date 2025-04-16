@@ -1,95 +1,129 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    jQuery?: any;
+  }
+}
 import Header from "@/components/header";
-import Profile from "@/components/profile";
-import About from "@/components/about";
-import Resume from "@/components/resume";
-import Works from "@/components/works";
-import Blog from "@/components/blog";
-import Contact from "@/components/contact";
+import CardStarted from "@/components/card-started";
+import AboutCard from "@/components/about-card";
+import ResumeCard from "@/components/resume-card";
+import WorksCard from "@/components/works-card";
+import BlogCard from "@/components/blog-card";
+import ContactsCard from "@/components/contacts-card";
+import ContentSidebar from "@/components/content-sidebar";
+import Script from "next/script";
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("home-card");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
+    // Simulate preloader
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 800);
 
-    // Handle hash changes
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        setActiveSection(hash);
-      }
-    };
+    // Initialize typed.js for typing animation
+    if (typeof window !== "undefined") {
+      // This will be executed after the component is mounted
+      const initScripts = async () => {
+        try {
+          // Wait for external scripts to load
+          await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Check initial hash
-    if (window.location.hash) {
-      handleHashChange();
+          // Initialize any custom scripts here
+          if (window.jQuery && window.jQuery.fn.typed) {
+            window.jQuery(".typing-title").typed({
+              strings: ["Web Designer", "Developer", "Freelancer"],
+              loop: true,
+              startDelay: 1000,
+              backDelay: 2000,
+            });
+          }
+        } catch (error) {
+          console.error("Error initializing scripts:", error);
+        }
+      };
+
+      initScripts();
     }
 
-    // Add event listener
-    window.addEventListener("hashchange", handleHashChange);
-
-    // Scroll to section when hash changes
-    const scrollToSection = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    };
-
-    window.addEventListener("hashchange", scrollToSection);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("hashchange", handleHashChange);
-      window.removeEventListener("hashchange", scrollToSection);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <main className="page">
-      {/* Preloader */}
+    <div className="page new-skin">
+      {/* preloader */}
       {isLoading && (
-        <div className="preloader fixed inset-0 bg-white z-50 flex items-center justify-center">
-          <div className="spinner">
-            <div className="double-bounce1 w-16 h-16 rounded-full bg-primary absolute top-0 left-0 opacity-60 animate-ping"></div>
-            <div className="double-bounce2 w-16 h-16 rounded-full bg-secondary absolute top-0 left-0 opacity-60 animate-ping delay-300"></div>
+        <div className="preloader">
+          <div className="centrize full-width">
+            <div className="vertical-center">
+              <div className="spinner">
+                <div className="double-bounce1"></div>
+                <div className="double-bounce2"></div>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Background */}
-      <div className="background gradient bg-gradient-primary fixed inset-0 -z-10">
+      {/* background */}
+      <div className="background gradient">
         <ul className="bg-bubbles">
-          {[...Array(10)].map((_, i) => (
-            <li key={i}></li>
-          ))}
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ul>
       </div>
 
       {/* Container */}
-      <div className="container relative min-h-screen">
+      <div
+        className="container opened"
+        data-animation-in="fadeInLeft"
+        data-animation-out="fadeOutLeft"
+      >
         <Header />
-
-        {/* Content */}
-        <div className="content-wrapper pt-20">
-          {activeSection === "home-card" && <Profile />}
-          {activeSection === "about-card" && <About />}
-          {activeSection === "resume-card" && <Resume />}
-          {activeSection === "works-card" && <Works />}
-          {activeSection === "blog-card" && <Blog />}
-          {activeSection === "contacts-card" && <Contact />}
-        </div>
+        <CardStarted />
+        <AboutCard />
+        <ResumeCard />
+        <WorksCard />
+        <BlogCard />
+        <ContactsCard />
       </div>
-    </main>
+
+      <div className="s_overlay"></div>
+      <ContentSidebar />
+
+      {/* External Scripts */}
+      <Script
+        src="https://use.fontawesome.com/8da76d029b.js"
+        strategy="lazyOnload"
+      />
+      <Script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz2w7HUaWudHwd7AWQpCL48Qs050WOn9s"
+        strategy="lazyOnload"
+      />
+
+      {/* Add jQuery and other scripts */}
+      <Script src="/js/jquery.min.js" strategy="beforeInteractive" />
+      <Script src="/js/jquery.validate.js" strategy="afterInteractive" />
+      <Script src="/js/jquery.magnific-popup.js" strategy="afterInteractive" />
+      <Script src="/js/imagesloaded.pkgd.js" strategy="afterInteractive" />
+      <Script src="/js/isotope.pkgd.js" strategy="afterInteractive" />
+      <Script src="/js/jquery.slimscroll.js" strategy="afterInteractive" />
+      <Script src="/js/owl.carousel.js" strategy="afterInteractive" />
+      <Script src="/js/typed.js" strategy="afterInteractive" />
+      <Script src="/js/scripts.js" strategy="afterInteractive" />
+    </div>
   );
 }

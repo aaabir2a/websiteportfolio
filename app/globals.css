@@ -1,221 +1,230 @@
+/* Import all CSS files */
+@import url("/css/basic.css");
+@import url("/css/layout.css");
+@import url("/css/blogs.css");
+@import url("/css/ionicons.css");
+@import url("/css/magnific-popup.css");
+@import url("/css/animate.css");
+@import url("/css/owl.carousel.css");
+@import url("/css/gradient.css");
+@import url("/css/new-skin/new-skin.css");
+@import url("/css/demos/demo-1-colors.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary-color: #50a1ff;
-  --secondary-color: #4bffa5;
-  --background-color: #fff;
-  --text-color: #323232;
-  --text-color-secondary: #646464;
-  --border-color: #eee;
-}
-
 body {
-  font-family: "Poppins", sans-serif;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Animation classes */
-.fadeInLeft {
-  animation: fadeInLeft 0.7s ease;
-}
-
-.fadeOutLeft {
-  animation: fadeOutLeft 0.7s ease;
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
-@keyframes fadeOutLeft {
-  from {
-    opacity: 1;
-    transform: translateX(0);
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
-  to {
-    opacity: 0;
-    transform: translateX(-20px);
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
-/* Background bubbles animation */
-.bg-bubbles {
-  position: absolute;
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+/* Additional styles for Next.js */
+.hide {
+  display: none !important;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 70px;
+  }
+}
+
+/* Fix for Next.js Image component */
+.image img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Additional styles for sidebar functionality */
+.content-sidebar {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 350px;
   height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.bg-bubbles li {
-  position: absolute;
-  list-style: none;
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.15);
-  bottom: -160px;
-  animation: square 25s infinite;
-  transition-timing-function: linear;
-}
-
-.bg-bubbles li:nth-child(1) {
-  left: 10%;
-}
-
-.bg-bubbles li:nth-child(2) {
-  left: 20%;
-  width: 80px;
-  height: 80px;
-  animation-delay: 2s;
-  animation-duration: 17s;
-}
-
-.bg-bubbles li:nth-child(3) {
-  left: 25%;
-  animation-delay: 4s;
-}
-
-.bg-bubbles li:nth-child(4) {
-  left: 40%;
-  width: 60px;
-  height: 60px;
-  animation-duration: 22s;
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.bg-bubbles li:nth-child(5) {
-  left: 70%;
-}
-
-.bg-bubbles li:nth-child(6) {
-  left: 80%;
-  width: 120px;
-  height: 120px;
-  animation-delay: 3s;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.bg-bubbles li:nth-child(7) {
-  left: 32%;
-  width: 160px;
-  height: 160px;
-  animation-delay: 7s;
-}
-
-.bg-bubbles li:nth-child(8) {
-  left: 55%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 15s;
-  animation-duration: 40s;
-}
-
-.bg-bubbles li:nth-child(9) {
-  left: 25%;
-  width: 10px;
-  height: 10px;
-  animation-delay: 2s;
-  animation-duration: 40s;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.bg-bubbles li:nth-child(10) {
-  left: 90%;
-  width: 160px;
-  height: 160px;
-  animation-delay: 11s;
-}
-
-@keyframes square {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-700px) rotate(600deg);
-  }
-}
-
-/* Card styles */
-.card-inner {
-  padding: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
+  z-index: 999;
+  background: #fff;
+  padding: 30px;
+  overflow: auto;
   opacity: 0;
   visibility: hidden;
-  z-index: 10;
+  transition: all 0.3s ease;
+  transform: translateX(-100%);
+}
+
+.content-sidebar.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.content-sidebar .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: block;
+}
+
+.content-sidebar .close:before,
+.content-sidebar .close:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 2px;
+  background: #999;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.content-sidebar .close:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.blog-sidebar-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #323232;
+  font-size: 16px;
+}
+
+/* Fix for card navigation */
+.card-inner {
+  position: absolute;
+  overflow: hidden;
+  left: 560px;
+  right: 0;
+  top: 15px;
+  bottom: 15px;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: perspective(1000px) rotateX(90deg) scale(0.9);
+  transition: all 0.4s ease;
 }
 
 .card-inner.active {
   opacity: 1;
   visibility: visible;
-  z-index: 15;
+  transform: perspective(1000px) rotateX(0deg) scale(1);
+  z-index: 1;
 }
 
-.card-wrap {
-  position: relative;
-  padding: 30px 30px 0;
-  max-width: 1032px;
-  margin: 0 auto;
-  min-height: 100%;
+.card-inner.animated {
+  animation: card-animation 0.4s ease;
 }
 
-.content {
-  position: relative;
-  margin: 0 0 40px 0;
+@keyframes card-animation {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(90deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) scale(1);
+  }
 }
 
-.title {
-  position: relative;
-  margin: 0 0 30px 0;
-  font-size: 20px;
-  color: var(--text-color);
-  font-weight: 600;
-}
-
-/* Custom components styles */
-@layer components {
-  .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300;
-  }
-
-  .btn-primary {
-    @apply bg-gradient-primary text-white hover:opacity-90;
-  }
-
-  .section-title {
-    @apply text-2xl font-semibold mb-8;
-  }
-
-  .service-item {
-    @apply p-6 rounded-lg border border-gray-100 hover:shadow-md transition-all duration-300;
-  }
-
-  .progress-bar {
-    @apply h-2 bg-gray-200 rounded-full overflow-hidden;
-  }
-
-  .progress-bar-fill {
-    @apply h-full bg-gradient-primary;
+@media (max-width: 1072px) {
+  .card-inner {
+    left: 0;
   }
 }

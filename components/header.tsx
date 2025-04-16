@@ -1,96 +1,119 @@
 "use client";
-
 import { useState } from "react";
-import Link from "next/link";
-import {
-  Menu,
-  X,
-  User,
-  List,
-  Paintbrush,
-  MessageSquare,
-  AtSign,
-} from "lucide-react";
+import type React from "react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about-card");
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+
+    // Hide all sections
+    const sections = document.querySelectorAll(".card-inner");
+    sections.forEach((section) => {
+      section.classList.remove("active");
+      section.classList.remove("animated");
+    });
+
+    // Show the selected section
+    const targetSection = document.getElementById(id);
+    if (targetSection) {
+      targetSection.classList.add("active");
+      targetSection.classList.add("animated");
+    }
+
+    // Update active state in menu
+    setActiveSection(id);
+
+    // Close menu on mobile
+    if (window.innerWidth < 768) {
+      setMenuOpen(false);
+    }
+  };
+
   return (
-    <header className="header fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="profile">
-          <div className="text-xl font-bold">Ryan Adlard</div>
-          <div className="text-sm text-gray-600">
-            <span className="typing-title">Web Designer</span>
+    <header className="header">
+      {/* header profile */}
+      <div className="profile">
+        <div className="title">Ryan Adlard</div>
+        <div className="subtitle subtitle-typed">
+          <div className="typing-title">
+            <p>Web Designer</p>
+            <p>Developer</p>
+            <p>Freelancer</p>
           </div>
         </div>
+      </div>
 
-        <button
-          onClick={toggleMenu}
-          className="menu-btn md:hidden"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+      {/* menu btn */}
+      <a
+        href="#"
+        className="menu-btn"
+        onClick={(e) => {
+          e.preventDefault();
+          toggleMenu();
+        }}
+      >
+        <span></span>
+      </a>
 
-        <nav className={`top-menu ${menuOpen ? "block" : "hidden"} md:block`}>
-          <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
-            <li>
-              <Link
-                href="#about-card"
-                className="flex items-center space-x-2 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                <User size={16} />
-                <span>About</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#resume-card"
-                className="flex items-center space-x-2 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                <List size={16} />
-                <span>Resume</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#works-card"
-                className="flex items-center space-x-2 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                <Paintbrush size={16} />
-                <span>Works</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#blog-card"
-                className="flex items-center space-x-2 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                <MessageSquare size={16} />
-                <span>Blog</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#contacts-card"
-                className="flex items-center space-x-2 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                <AtSign size={16} />
-                <span>Contact</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+      {/* menu */}
+      <div className={`top-menu ${menuOpen ? "active" : ""}`}>
+        <ul>
+          <li className={activeSection === "about-card" ? "active" : ""}>
+            <a
+              href="#about-card"
+              onClick={(e) => handleNavClick(e, "about-card")}
+            >
+              <span className="icon ion-person"></span>
+              <span className="link">About</span>
+            </a>
+          </li>
+          <li className={activeSection === "resume-card" ? "active" : ""}>
+            <a
+              href="#resume-card"
+              onClick={(e) => handleNavClick(e, "resume-card")}
+            >
+              <span className="icon ion-android-list"></span>
+              <span className="link">Resume</span>
+            </a>
+          </li>
+          <li className={activeSection === "works-card" ? "active" : ""}>
+            <a
+              href="#works-card"
+              onClick={(e) => handleNavClick(e, "works-card")}
+            >
+              <span className="icon ion-paintbrush"></span>
+              <span className="link">Works</span>
+            </a>
+          </li>
+          <li className={activeSection === "blog-card" ? "active" : ""}>
+            <a
+              href="#blog-card"
+              onClick={(e) => handleNavClick(e, "blog-card")}
+            >
+              <span className="icon ion-chatbox-working"></span>
+              <span className="link">Blog</span>
+            </a>
+          </li>
+          <li className={activeSection === "contacts-card" ? "active" : ""}>
+            <a
+              href="#contacts-card"
+              onClick={(e) => handleNavClick(e, "contacts-card")}
+            >
+              <span className="icon ion-at"></span>
+              <span className="link">Contact</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </header>
   );
